@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">" Projet final"</string>
+    <string name="project_Title">" Application d'itinéraire d'autobus d'OCTranspo"</string>
+    <string name="entry_StationNo">" Saisissez le numéro de la station :"</string>
+    <string name="search">CHERCHER</string>
+    <string name="availableBusRoutes">Lignes de bus disponsibles</string>
+    <string name="alert_title">" Instructions sur la façon d'utiliser!"</string>
+    <string name="alert_message">" Pour localiser les lignes de bus pertinentes, accédez à la page principale et entrez le numéro de la station."</string>
+</resources>

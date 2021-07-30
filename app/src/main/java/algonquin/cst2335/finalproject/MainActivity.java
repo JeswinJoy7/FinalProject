@@ -1,8 +1,10 @@
 package algonquin.cst2335.finalproject;
 
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,10 +15,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,14 +55,49 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<BusRoutes> messages = new ArrayList<>();
     BusRouteAdapter adt = new BusRouteAdapter();
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+           case R.id.infoView:
+                AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Instructions on how to use!")
+                        .setMessage("To locate relevant bus routes, go to the main page and enter in the station number.")
+                        .show();
+                break;
+
+            case R.id.activity:
+                Intent intent = new Intent(this, Activity.class);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity_actions, menu);
+        return true;
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar myToolBar = findViewById(R.id.toolBar);
+        setSupportActionBar(myToolBar);
+
         stationNo = findViewById(R.id.stationEditText);
         searchBtn = findViewById(R.id.searchButton);
-        String StNo = stationNo.getText().toString();
+       // String StNo = stationNo.getText().toString();
+
+//       DrawerLayout drawer = findViewById(R.id.drawer_layout);
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, myToolBar );
+//        drawer.addDrawerListener(toggle);
+//
 
         // the recyclerview
         busRouteList = findViewById(R.id.busRoutesList);
@@ -69,10 +110,18 @@ public class MainActivity extends AppCompatActivity {
         String savedStationNo = prefs.getString("StationNo", "");
         stationNo.setText(savedStationNo);
 
-
-
-        // setting the JSON
+        // setting the JSON when the search button is clicked
         searchBtn.setOnClickListener( (click) -> {
+
+            AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+                    .setTitle("Fetching bus rotes")
+                    .setMessage("retrieving all bus routes from " + stationNo.getText().toString() + " station to find the perfect route..")
+                    .setView( new ProgressBar(MainActivity.this))
+                    .show();
+
+            //making visible
+            TextView avaiableBus = findViewById(R.id.availableBuses);
+            avaiableBus.setVisibility(View.VISIBLE);
 
             // Shared Preference
             SharedPreferences.Editor editor = prefs.edit();
@@ -80,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
             editor.apply();
 
             //Toast Message
-            Toast.makeText(getApplicationContext(),"Searching for Avaialable Buses in " + stationNo.getText().toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Searching for available Buses in " + stationNo.getText().toString(), Toast.LENGTH_LONG).show();
 
             Executor newThread = Executors.newSingleThreadExecutor();
             newThread.execute( () -> {
@@ -97,6 +146,8 @@ public class MainActivity extends AppCompatActivity {
                                     .lines()
                                     .collect(Collectors.joining("\n"));
 
+
+                    //declaring JSON objects, arrays
                     JSONObject theDocument = new JSONObject( text);
 
                     JSONObject getRouteSummaryForStopResults = theDocument.getJSONObject("GetRouteSummaryForStopResult");
@@ -115,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
                         messages.add(nextBusRoutes);
                     }
 
+                    //setting the text in the runOnUiThread
                     runOnUiThread( () -> {
                         TextView busSt = findViewById(R.id.busStationName);
                         busSt.setText(stopDescription);
@@ -123,6 +175,8 @@ public class MainActivity extends AppCompatActivity {
                         busSt = findViewById(R.id.busStationNo);
                         busSt.setText(stopNo);
                         busSt.setVisibility(View.VISIBLE);
+
+                        dialog.hide();
                     });
                 }
                 catch (IOException | JSONException ioe) {

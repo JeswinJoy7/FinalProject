@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,10 +8,26 @@
     android:background="#FFFFFF"
     tools:context=".MainActivity">
 
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/popout_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        android:visibility="invisible"/>
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/toolBar"/>
+
     <TextView
         android:id="@+id/busStationNo"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="sans-serif-smallcaps"
         android:text="8888"
@@ -18,12 +35,13 @@
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/busStationName"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/availableBuses"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/busStationName"
         android:layout_width="208dp"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:fontFamily="sans-serif-smallcaps"
@@ -32,16 +50,17 @@
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/availableBuses"
+        android:visibility="invisible"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/projectTitle"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="wrap_content"
         android:background="#14213D"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
-        android:text="OCTranspo Bus Route App"
+        android:text="@string/project_Title"
         android:textAlignment="viewStart"
         android:textColor="#F7F4F3"
         android:textSize="28sp"
@@ -52,16 +71,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textV_stationNo"
         android:layout_width="208dp"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="Enter the station number:"
+        android:layout_marginTop="28dp"
+        android:text="@string/entry_StationNo"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/projectTitle" />
 
     <EditText
         android:id="@+id/stationEditText"
@@ -72,8 +91,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.163"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toEndOf="@+id/textV_stationNo"
+        app:layout_constraintTop_toBottomOf="@+id/projectTitle" />
 
     <Button
         android:id="@+id/searchButton"
@@ -81,29 +100,32 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:fontFamily="sans-serif-black"
-        android:text="SEARCH"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        android:text="@string/search"
+        app:layout_constraintStart_toStartOf="@+id/textV_stationNo"
+        app:layout_constraintTop_toBottomOf="@+id/textV_stationNo" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/availableBuses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Available Bus Routes"
+        android:text="@string/availableBusRoutes"
         android:textColor="#14213D"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/searchButton"
-        app:layout_constraintTop_toBottomOf="@+id/searchButton" />
+        app:layout_constraintTop_toBottomOf="@+id/searchButton"
+        android:visibility="invisible"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/busRoutesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="320dp"
         android:background="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/busStationName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
