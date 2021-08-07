@@ -7,11 +7,12 @@
     android:background="#14213D">
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
 
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:background="#FCA311"
             android:orientation="horizontal"
@@ -25,7 +26,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="55dp"
                     android:layout_marginStart="40dp"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="35dp"
                     android:background="#FF665B"
                     android:padding="10dp"
                     android:text="88"
@@ -37,12 +38,12 @@
 
                 <TextView
                     android:id="@+id/busName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="214dp"
+                    android:layout_height="64dp"
                     android:layout_margin="20dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="2dp"
                     android:layout_marginTop="32dp"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="2dp"
                     android:text="Bus Name goes here."
                     android:textColor="#2B1515"
                     android:textSize="24sp"
@@ -50,5 +51,29 @@
                     app:layout_constraintStart_toEndOf="@+id/busNumber"
                     app:layout_constraintTop_toTopOf="parent" />
 
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/goToBtn"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:text="go"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/deleteBtn"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="85dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/delete" />
 </androidx.constraintlayout.widget.ConstraintLayout>

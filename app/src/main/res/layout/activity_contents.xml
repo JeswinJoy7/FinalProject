@@ -4,42 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4C0C0">
+    android:background="#D4E1F4">
 
-    <LinearLayout
-        android:layout_width="281dp"
-        android:layout_height="189dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3">
 
-        <TextView
-            android:layout_width="199dp"
-            android:layout_height="40dp"
-            android:layout_margin="40dp"
-            android:text="Author: Jeswin Joy"
-            android:textColor="#01168C"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="49dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="10dp"
-            android:text="Version Number: 1.2.0"
-            android:textColor="#01168C"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </LinearLayout>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="60dp"
         android:text="OCTranspo Bus Route App"
         android:textColor="#000000"
         android:textSize="24sp"
@@ -55,4 +28,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:srcCompat="@drawable/bus" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="199dp"
+        android:layout_height="40dp"
+        android:layout_margin="40dp"
+        android:layout_marginTop="40dp"
+        android:text="Author: Jeswin Joy"
+        android:textColor="#08103C"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="49dp"
+        android:text="Version Number: 1.2.0"
+        android:textColor="#08103C"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="49dp"
+        android:text="@string/alert_message"
+        android:textAlignment="center"
+        android:textColor="#4E4E51"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <Button
+        android:id="@+id/backBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
