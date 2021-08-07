@@ -4,24 +4,20 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -42,12 +38,6 @@ public class BusRouteDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.busroute_details);
-
-        backBtn = findViewById(R.id.backBtn);
-        backBtn.setOnClickListener((clk)->{
-            Intent intent = new Intent(this, OCTranspoActivity.class);
-            startActivity(intent);
-        });
 
         Intent fromPrevious = getIntent();
         String busNum = fromPrevious.getStringExtra("BusNum");
@@ -83,25 +73,22 @@ public class BusRouteDetails extends AppCompatActivity {
                 JSONObject getNextTripsForStopResults = theDocument.getJSONObject("GetNextTripsForStopResult");
                 JSONObject Route = getNextTripsForStopResults.getJSONObject("Route");
 
-                JSONArray RouteDirection = Route.getJSONArray("RouteDirection");
+                JSONObject RouteDirection = Route.getJSONObject("RouteDirection");
 
+                String RouteLabel = RouteDirection.getString("RouteLabel");
+                JSONObject Trips = RouteDirection.getJSONObject("Trips");
+                JSONArray Trip = Trips.getJSONArray("Trip");
 
-                    JSONObject position = RouteDirection.getJSONObject(0);
-                    String RouteLabel = position.getString("RouteLabel");
-                    JSONObject Trips = position.getJSONObject("Trips");
-                    JSONObject Trip = Trips.getJSONObject("Trip");
+                for(int i = 0; i< Trip.length(); i++) {
+                    JSONObject position = Trip.getJSONObject(i);
+                    String Longitude = position.getString("Longitude");
+                    String Latitude = position.getString("Latitude");
+                    String GPSSpeed = position.getString("GPSSpeed");
+                    String TripDestination = position.getString("TripDestination");
+                    String TripStartTime = position.getString("TripStartTime");
+                    String AdjustedScheduleTime = position.getString("AdjustedScheduleTime");
 
-                    String Longitude = Trip.getString("Longitude");
-                    String Latitude = Trip.getString("Latitude");
-                    String GPSSpeed = Trip.getString("GPSSpeed");
-                    String TripDestination = Trip.getString("TripDestination");
-                    String TripStartTime = Trip.getString("TripStartTime");
-                    String AdjustedScheduleTime = Trip.getString("AdjustedScheduleTime");
-
-
-                runOnUiThread( () ->{
-
-                    if(RouteLabel == busName){
+                    runOnUiThread(() -> {
                         TextView dest = findViewById(R.id.destination);
                         dest.setText(TripDestination);
 
@@ -119,15 +106,9 @@ public class BusRouteDetails extends AppCompatActivity {
 
                         TextView adjustedTime = findViewById(R.id.adjustedTime);
                         adjustedTime.setText(AdjustedScheduleTime);
-                    }
-                    else {
 
-                    }
-
-                });
-
-
-
+                    });
+                }
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }

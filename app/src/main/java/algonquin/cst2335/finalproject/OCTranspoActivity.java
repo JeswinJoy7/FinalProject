@@ -1,8 +1,10 @@
 package algonquin.cst2335.finalproject;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,7 +61,7 @@ public class OCTranspoActivity extends AppCompatActivity {
     private Button searchBtn;
     ArrayList<BusRoutes> messages = new ArrayList<>();
     BusRouteAdapter adt = new BusRouteAdapter();
-
+    SQLiteDatabase db;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId())
@@ -112,6 +114,9 @@ public class OCTranspoActivity extends AppCompatActivity {
             drawer.closeDrawer(GravityCompat.START);
             return false;
         });
+
+        Database opener = new Database(this);
+        db = opener.getWritableDatabase();
 
         // the recyclerview
         busRouteList = findViewById(R.id.busRoutesList);
@@ -176,6 +181,13 @@ public class OCTranspoActivity extends AppCompatActivity {
                         String routeNo = busRoutes.getString("RouteNo");
                         String routeHeading = busRoutes.getString("RouteHeading");
                         BusRoutes nextBusRoutes = new BusRoutes(routeNo, routeHeading);
+
+                        //dataBase
+                        ContentValues newRows = new ContentValues();
+                        newRows.put(Database.col_busNumber, nextBusRoutes.getBusNumber());
+                        newRows.put(Database.col_busName, nextBusRoutes.getBusName());
+                        Long newId = db.insert(Database.TABLE_NAME, Database.col_busName,newRows);
+                        nextBusRoutes.setId(newId);
                         messages.add(nextBusRoutes);
                     }
 
@@ -230,11 +242,17 @@ public class OCTranspoActivity extends AppCompatActivity {
                             messages.remove(position);
                             adt.notifyItemRemoved(position);
 
+                            db.delete(Database.TABLE_NAME,"_id=?",new String[] { Long.toString(removedMessage.getId()) });
+
                             //SnackBar
                             Snackbar.make(busName, "You deleted message #"+position,Snackbar.LENGTH_LONG)
                                     .setAction("Undo", clk -> {
                                         messages.add(position, removedMessage);
                                         adt.notifyItemInserted(position);
+
+                                        db.execSQL("Insert into "+ Database.TABLE_NAME + "values('" + removedMessage.getId() +
+                                                "','" + removedMessage.getBusNumber() +
+                                                "','" + removedMessage.getBusName() + "');");
                                     })
                                     .show();
                         }).create().show();
@@ -298,6 +316,7 @@ public class OCTranspoActivity extends AppCompatActivity {
     {
         String busNumber;
         String busName;
+        long id;
 
         public BusRoutes(String busNumber, String busName) {
             this.busNumber = busNumber;
@@ -309,6 +328,14 @@ public class OCTranspoActivity extends AppCompatActivity {
         }
         public String getBusName() {
             return busName;
+        }
+
+        public void setId(long l) {
+            id = l;
+        }
+
+        public long getId() {
+            return id;
         }
     }
 
