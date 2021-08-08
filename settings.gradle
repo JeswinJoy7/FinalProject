@@ -1,2 +1,2 @@
-rootProject.name = "FinalProject"
+rootProject.name = "Movie"
 include ':app'
