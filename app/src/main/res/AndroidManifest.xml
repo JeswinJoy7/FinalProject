@@ -13,9 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CharginPoint">
         <activity
-            android:name=".Activity.AllSavedDataActivity"
-            android:exported="true" />
-        <activity
             android:name=".Activity.DetailsActivity"
             android:exported="true" />
         <activity
