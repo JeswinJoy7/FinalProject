@@ -30,7 +30,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SS_MainActivity extends AppCompatActivity implements AdapterInterface {
-
+    //declare variables
     private static final String TAG = "MainActivity";
     RecyclerView mRecyclerView;
     ChargingPointAdapter chargingPointAdapter;
@@ -67,22 +67,23 @@ public class SS_MainActivity extends AppCompatActivity implements AdapterInterfa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ss_activity_main);
-
+//initialize variable
         mRecyclerView = findViewById(R.id.recyclerview);
         searchView = findViewById(R.id.searchView);
 
-        getchargingPointInfo = new ArrayList<>();
-        chargingPointAdapter = new ChargingPointAdapter(getchargingPointInfo, getApplicationContext(), this);
-        mRecyclerView.setAdapter(chargingPointAdapter);
+        getchargingPointInfo = new ArrayList<>();//initialize list
+        chargingPointAdapter = new ChargingPointAdapter(getchargingPointInfo, getApplicationContext(), this);//adding list into adapter
+        mRecyclerView.setAdapter(chargingPointAdapter);//adding adapter into recyclerview
 
         sharedPrefManager = new SharedManager(getApplicationContext());
+        // Call method for call Api
         getchargingPointInfoCall();
 
-
+        //Search method for searching the data
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-//                chargingPointAdapter.getFilter().filter(s);
+                //                chargingPointAdapter.getFilter().filter(s);
                 return false;
             }
 
@@ -97,15 +98,13 @@ public class SS_MainActivity extends AppCompatActivity implements AdapterInterfa
 
     }
 
+    // method for filltering the data of list
     private void filter(String text) {
         // creating a new array list to filter our data.
         ArrayList<AddressInfo> filteredlist = new ArrayList<>();
-        Log.d("TAG", "Charginpotin: " + getchargingPointInfo.toString());
-
         // running a for loop to compare elements.
         for (AddressInfo item : getchargingPointInfo) {
             // checking if the entered string matched with any item of our recycler view.
-            Log.d(TAG, "filter: " + item.getAddressLine2());
             if (item.getAddressLine2().toLowerCase().contains(text.toLowerCase())) {
                 // if the item is matched we are
                 // adding it to our filtered list.
@@ -123,6 +122,7 @@ public class SS_MainActivity extends AppCompatActivity implements AdapterInterfa
         }
     }
 
+    //method of Api
     private void getchargingPointInfoCall() {
 
         Api iRestInterfaces = ApiUtils.getAPIService();
@@ -145,15 +145,14 @@ public class SS_MainActivity extends AppCompatActivity implements AdapterInterfa
                     addressInfo.setContactTelephone1(example.get(i).getAddressInfo().getContactTelephone1());
                     addressInfo.setContactTelephone2(example.get(i).getAddressInfo().getContactTelephone2());
                     addressInfo.setContactEmail(example.get(i).getAddressInfo().getContactEmail());
-                    getchargingPointInfo.add(addressInfo);
+                    getchargingPointInfo.add(addressInfo);//adding data into list from api
 
                 }
                 if (example.size() > 0) {
-                    chargingPointAdapter.notifyDataSetChanged();
+                    chargingPointAdapter.notifyDataSetChanged(); //notify the adapter class
                 } else {
                     Toast.makeText(SS_MainActivity.this, "No Data Found", Toast.LENGTH_SHORT).show();
                 }
-
 
 
             }
@@ -165,11 +164,13 @@ public class SS_MainActivity extends AppCompatActivity implements AdapterInterfa
         });
     }
 
+
+    //method for got to details page on a click of items
     @Override
     public void onItemClicked(AddressInfo addressInfo) {
 
         Intent intent = new Intent(SS_MainActivity.this, DetailsActivity.class);
-
+        //store data in intent to show on details page
         sharedPrefManager.putString("Title", addressInfo.getTitle());
         sharedPrefManager.putString("Latitude", String.valueOf(addressInfo.getLatitude()));
         sharedPrefManager.putString("Longitude", String.valueOf(addressInfo.getLongitude()));
