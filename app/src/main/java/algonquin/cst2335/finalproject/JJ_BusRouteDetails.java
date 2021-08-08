@@ -38,7 +38,7 @@ public class JJ_BusRouteDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.JJ_busroute_details);
+        setContentView(R.layout.jj_busroute_details);
 
         /** retreiving value from the OCTranspoActivity.java*/
         Intent fromPrevious = getIntent();

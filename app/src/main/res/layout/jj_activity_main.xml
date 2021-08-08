@@ -120,6 +120,6 @@ android:id="@+id/drawer_layout">
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             app:menu="@menu/main_activity_actions"
-            app:headerLayout="@layout/JJ_popout_header"/>
+            app:headerLayout="@layout/jj_popout_header"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

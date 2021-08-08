@@ -12,7 +12,7 @@ public class JJ_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.JJ_activity_contents);
+        setContentView(R.layout.jj_activity_contents);
 
         backBtn = findViewById(R.id.detailsBtn);
         backBtn.setOnClickListener((clk)->{

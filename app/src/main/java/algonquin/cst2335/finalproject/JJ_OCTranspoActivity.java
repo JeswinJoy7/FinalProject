@@ -110,7 +110,7 @@ public class JJ_OCTranspoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.JJ_activity_main);
+        setContentView(R.layout.jj_activity_main);
 
         /** ToolBar object*/
         Toolbar myToolBar = findViewById(R.id.toolBar);
@@ -316,7 +316,7 @@ public class JJ_OCTranspoActivity extends AppCompatActivity {
         @Override
         public RowsViews onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = getLayoutInflater();
-            View loadedRow = inflater.inflate(R.layout.JJ_avaiable_busroutes, parent, false);
+            View loadedRow = inflater.inflate(R.layout.jj_avaiable_busroutes, parent, false);
             return new RowsViews(loadedRow);
             //return new RowsViews(getLayoutInflater().inflate(R.layout.avaiable_busroutes, parent,false));
         }
