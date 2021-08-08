@@ -29,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements AdapterInterface {
+public class SS_MainActivity extends AppCompatActivity implements AdapterInterface {
 
     private static final String TAG = "MainActivity";
     RecyclerView mRecyclerView;
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements AdapterInterface 
         switch (item.getItemId()) {
             // action with ID action_refresh was selected
             case R.id.savedDataId:
-                Intent intent = new Intent(MainActivity.this, AllSavedDataActivity.class);
+                Intent intent = new Intent(SS_MainActivity.this, AllSavedDataActivity.class);
                 startActivity(intent);
                 break;
 
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements AdapterInterface 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.ss_activity_main);
 
         mRecyclerView = findViewById(R.id.recyclerview);
         searchView = findViewById(R.id.searchView);
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements AdapterInterface 
                 if (example.size() > 0) {
                     chargingPointAdapter.notifyDataSetChanged();
                 } else {
-                    Toast.makeText(MainActivity.this, "No Data Found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SS_MainActivity.this, "No Data Found", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements AdapterInterface 
     @Override
     public void onItemClicked(AddressInfo addressInfo) {
 
-        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+        Intent intent = new Intent(SS_MainActivity.this, DetailsActivity.class);
 
         sharedPrefManager.putString("Title", addressInfo.getTitle());
         sharedPrefManager.putString("Latitude", String.valueOf(addressInfo.getLatitude()));
