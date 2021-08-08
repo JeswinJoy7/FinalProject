@@ -20,7 +20,6 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -30,14 +29,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -53,15 +49,32 @@ import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 public class OCTranspoActivity extends AppCompatActivity {
-
-
+    /** busRoute is the Recycler View*/
     private RecyclerView busRouteList;
+
+    /** StringURL hold the URL of the server in String Format*/
     private String stringURL;
+
+    /** stationNo is the editText, where the user type the specified Bus Station Number*/
     private EditText stationNo;
+
+    /** serachBtn is the search Button */
     private Button searchBtn;
+
+    /** the arrayList that holds all the bus routes in the recyclerView*/
     ArrayList<BusRoutes> messages = new ArrayList<>();
+
+    /** the adapter object*/
     BusRouteAdapter adt = new BusRouteAdapter();
+
+    /** the SQL database object*/
     SQLiteDatabase db;
+
+    /**This method is responsible for creating specific activities to the toolbar objects
+     *
+     * @param item
+     * @return onOptionsItemSelected(item)
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId())
@@ -81,6 +94,11 @@ public class OCTranspoActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**this method loads the layout for the toolbar
+     *
+     * @param menu
+     * @return true if the function execute properly
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -94,13 +112,16 @@ public class OCTranspoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /** ToolBar object*/
         Toolbar myToolBar = findViewById(R.id.toolBar);
         setSupportActionBar(myToolBar);
 
+        /** finding the stationNo(EditText) and searchBtn(Button)*/
         stationNo = findViewById(R.id.stationEditText);
         searchBtn = findViewById(R.id.searchButton);
         // String StNo = stationNo.getText().toString();
 
+        /** the navigationBar*/
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, myToolBar, R.string.open, R.string.close );
         drawer.addDrawerListener(toggle);
@@ -115,42 +136,41 @@ public class OCTranspoActivity extends AppCompatActivity {
             return false;
         });
 
+        /** database object: opener*/
         Database opener = new Database(this);
         db = opener.getWritableDatabase();
 
-        // the recyclerview
+        /**the recyclerview */
         busRouteList = findViewById(R.id.busRoutesList);
         busRouteList.setAdapter(adt);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         busRouteList.setLayoutManager(layoutManager);
 
-        // Shared Preferences
+        /** Shared Preferences*/
         SharedPreferences prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
         String savedStationNo = prefs.getString("StationNo", "");
         stationNo.setText(savedStationNo);
 
-        // setting the JSON when the search button is clicked
+        /**setting the JSON when the search button is clicked*/
         searchBtn.setOnClickListener( (click) -> {
 
-
-
+            /** AlertDialogBox: to show the user that the system is still searching for the results*/
             AlertDialog dialog = new AlertDialog.Builder(this)
                     .setTitle("Fetching bus rotes")
                     .setMessage("retrieving all bus routes from " + stationNo.getText().toString() + " station to find the perfect route..")
                     .setView( new ProgressBar(this))
                     .show();
 
-            //making visible
+            /**making the avaiableBus(textView) visible*/
             TextView avaiableBus = findViewById(R.id.availableBuses);
             avaiableBus.setVisibility(View.VISIBLE);
 
-            // Shared Preference
+            /** Shared Preferences*/
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("StationNo", stationNo.getText().toString());
             editor.apply();
 
-
-
+            /** thread for the gathering information from the  JSON server*/
             Executor newThread = Executors.newSingleThreadExecutor();
             newThread.execute( () -> {
                 try {
@@ -167,7 +187,7 @@ public class OCTranspoActivity extends AppCompatActivity {
                             .collect(Collectors.joining("\n"));
 
 
-                    //declaring JSON objects, arrays
+                    /**declaring JSON objects, arrays*/
                     JSONObject theDocument = new JSONObject( text);
 
                     JSONObject getRouteSummaryForStopResults = theDocument.getJSONObject("GetRouteSummaryForStopResult");
@@ -176,6 +196,7 @@ public class OCTranspoActivity extends AppCompatActivity {
 
                     JSONObject routes = getRouteSummaryForStopResults.getJSONObject("Routes");
                     JSONArray route = routes.getJSONArray("Route");
+
 
 
                     for(int i =0; i< route.length(); i++) {
@@ -194,7 +215,7 @@ public class OCTranspoActivity extends AppCompatActivity {
                         messages.add(nextBusRoutes);
 
 
-                    //setting the text in the runOnUiThread
+                    /**setting the text in the runOnUiThread*/
                     runOnUiThread( () -> {
                         TextView busSt = findViewById(R.id.busStationName);
                         busSt.setText(stopDescription);
@@ -205,19 +226,26 @@ public class OCTranspoActivity extends AppCompatActivity {
                         busSt.setVisibility(View.VISIBLE);
 
                         dialog.hide();
+
+
                     });
-                } }
+                }
+
+                }
                 catch (IOException | JSONException ioe) {
                     Log.e("Connection error",ioe.getMessage());
                 }
             });
 
-            //Toast Message
-            //Toast.makeText(getApplicationContext(),"Searching for available Buses in " + stationNo.getText().toString(), Toast.LENGTH_LONG).show();
+            /**Toast Message*/
+            Toast.makeText(getApplicationContext()," avaiable bus routes have been found", Toast.LENGTH_LONG).show();
+
         });
     }
 
-    /** for rows in the recyclerview */
+    /**
+     *  for the rows in the recyclerview
+     */
     private class RowsViews extends RecyclerView.ViewHolder {
 
         TextView busNum;
@@ -232,7 +260,7 @@ public class OCTranspoActivity extends AppCompatActivity {
             ImageButton deleteBtn = null;
             deleteBtn = itemView.findViewById(R.id.deleteBtn);
 
-            // Alert Dialog box and
+            /** Alert Dialog box when the user decides to delete a specific bus route*/
             deleteBtn.setOnClickListener( click -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(OCTranspoActivity.this);
                 builder.setTitle("Question:")
@@ -247,7 +275,7 @@ public class OCTranspoActivity extends AppCompatActivity {
 
                             db.delete(Database.TABLE_NAME,"_id=?",new String[] { Long.toString(removedMessage.getId()) });
 
-                            //SnackBar
+                            /**SnackBar*/
                             Snackbar.make(busName, "You deleted message #"+position,Snackbar.LENGTH_LONG)
                                     .setAction("Undo", clk -> {
                                         messages.add(position, removedMessage);
@@ -282,7 +310,7 @@ public class OCTranspoActivity extends AppCompatActivity {
         }
     }
 
-    // Adapter
+    /** Adapter Class for the Recycler View*/
     private class BusRouteAdapter extends RecyclerView.Adapter<RowsViews>{
 
         @Override
@@ -299,13 +327,6 @@ public class OCTranspoActivity extends AppCompatActivity {
             holder.busName.setText(messages.get(position).getBusName());
             holder.setPosition(position);
 
-//            holder.itemView.setOnClickListener( (clk) -> {
-//                Intent intent = new Intent(holder.itemView.getContext(), BusRouteDetails.class);
-//                intent.putExtra("BusNum" , holder.busNum.getText().toString());
-//                intent.putExtra("BusName", holder.busName.getText().toString());
-//                startActivity(intent);
-//
-//            });
         }
 
         @Override
@@ -321,6 +342,11 @@ public class OCTranspoActivity extends AppCompatActivity {
         String busName;
         long id;
 
+        /** Constructor
+         *
+         * @param busNumber
+         * @param busName
+         */
         public BusRoutes(String busNumber, String busName) {
             this.busNumber = busNumber;
             this.busName = busName;
@@ -336,7 +362,6 @@ public class OCTranspoActivity extends AppCompatActivity {
         public void setId(long l) {
             id = l;
         }
-
         public long getId() {
             return id;
         }

@@ -4,16 +4,12 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,31 +25,36 @@ import java.util.stream.Collectors;
 
 public class BusRouteDetails extends AppCompatActivity {
 
-    Button backBtn;
+    /** the BusNumber textView*/
     TextView BusNumber;
+
+    /** BusStationName*/
     TextView BusStationName;
 
+    /** StringURL hold the URL of the server in String Format*/
     private String stringURL;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.busroute_details);
 
+        /** retreiving value from the OCTranspoActivity.java*/
         Intent fromPrevious = getIntent();
         String busNum = fromPrevious.getStringExtra("BusNum");
         String busName = fromPrevious.getStringExtra("BusName");
         String busStationNumber = fromPrevious.getStringExtra("BusStationNumber");
 
-//        EditText stationNum = findViewById(R.id.stationEditText);
-//        String busStationNumber = stationNum.getText().toString();
-
+        /** find the elements*/
         BusNumber = findViewById(R.id.busNumber);
         BusStationName = findViewById(R.id.busName);
 
+        /** setting the text values from OCTranspoActivity class to the textView*/
         BusNumber.setText(busNum);
         BusStationName.setText(busName);
 
+        /** thread for the gathering information from the  JSON server*/
         Executor newThread = Executors.newSingleThreadExecutor();
         newThread.execute(() -> {
             try {
@@ -83,7 +84,6 @@ public class BusRouteDetails extends AppCompatActivity {
                     JSONObject Trips = p.getJSONObject("Trips");
                     JSONArray Trip = Trips.getJSONArray("Trip");
 
-                //for(int i = 0; i< Trip.length(); i++) {
                     JSONObject position = Trip.getJSONObject(0);
                     String Longitude = position.getString("Longitude");
                     String Latitude = position.getString("Latitude");
@@ -94,6 +94,7 @@ public class BusRouteDetails extends AppCompatActivity {
 
                     runOnUiThread(() -> {
 
+                        /** setting the values*/
                         if(RouteLabel.equals(busName)) {
                             TextView dest = findViewById(R.id.destination);
                             dest.setText(TripDestination);
@@ -120,7 +121,7 @@ public class BusRouteDetails extends AppCompatActivity {
                             adjustedTime.setVisibility(View.VISIBLE);
                         }
                     });
-                } //}
+                }
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
