@@ -23,7 +23,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
-public class BusRouteDetails extends AppCompatActivity {
+public class JJ_BusRouteDetails extends AppCompatActivity {
 
     /** the BusNumber textView*/
     TextView BusNumber;
@@ -38,7 +38,7 @@ public class BusRouteDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.busroute_details);
+        setContentView(R.layout.JJ_busroute_details);
 
         /** retreiving value from the OCTranspoActivity.java*/
         Intent fromPrevious = getIntent();

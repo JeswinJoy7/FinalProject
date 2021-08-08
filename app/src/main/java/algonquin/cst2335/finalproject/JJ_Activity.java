@@ -6,17 +6,17 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Activity extends AppCompatActivity {
+public class JJ_Activity extends AppCompatActivity {
 
     Button backBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contents);
+        setContentView(R.layout.JJ_activity_contents);
 
         backBtn = findViewById(R.id.detailsBtn);
         backBtn.setOnClickListener((clk)->{
-            Intent intent = new Intent(this, OCTranspoActivity.class);
+            Intent intent = new Intent(this, JJ_OCTranspoActivity.class);
             startActivity(intent);
         });
     }

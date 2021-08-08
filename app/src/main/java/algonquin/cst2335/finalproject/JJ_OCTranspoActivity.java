@@ -48,7 +48,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
-public class OCTranspoActivity extends AppCompatActivity {
+public class JJ_OCTranspoActivity extends AppCompatActivity {
     /** busRoute is the Recycler View*/
     private RecyclerView busRouteList;
 
@@ -87,7 +87,7 @@ public class OCTranspoActivity extends AppCompatActivity {
                 break;
 
             case R.id.activity:
-                Intent intent = new Intent(this, Activity.class);
+                Intent intent = new Intent(this, JJ_Activity.class);
                 startActivity(intent);
                 break;
         }
@@ -110,7 +110,7 @@ public class OCTranspoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.JJ_activity_main);
 
         /** ToolBar object*/
         Toolbar myToolBar = findViewById(R.id.toolBar);
@@ -137,7 +137,7 @@ public class OCTranspoActivity extends AppCompatActivity {
         });
 
         /** database object: opener*/
-        Database opener = new Database(this);
+        JJ_Database opener = new JJ_Database(this);
         db = opener.getWritableDatabase();
 
         /**the recyclerview */
@@ -208,9 +208,9 @@ public class OCTranspoActivity extends AppCompatActivity {
 
                         //dataBase
                         ContentValues newRows = new ContentValues();
-                        newRows.put(Database.col_busNumber, nextBusRoutes.getBusNumber());
-                        newRows.put(Database.col_busName, nextBusRoutes.getBusName());
-                        Long newId = db.insert(Database.TABLE_NAME, Database.col_busNumber,newRows);
+                        newRows.put(JJ_Database.col_busNumber, nextBusRoutes.getBusNumber());
+                        newRows.put(JJ_Database.col_busName, nextBusRoutes.getBusName());
+                        Long newId = db.insert(JJ_Database.TABLE_NAME, JJ_Database.col_busNumber,newRows);
                         nextBusRoutes.setId(newId);
                         messages.add(nextBusRoutes);
 
@@ -262,7 +262,7 @@ public class OCTranspoActivity extends AppCompatActivity {
 
             /** Alert Dialog box when the user decides to delete a specific bus route*/
             deleteBtn.setOnClickListener( click -> {
-                AlertDialog.Builder builder = new AlertDialog.Builder(OCTranspoActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(JJ_OCTranspoActivity.this);
                 builder.setTitle("Question:")
                         .setMessage("Do you want to delete the Message: " + busNum.getText() + " " + busName.getText())
                         .setNegativeButton("No", (dialog, cl) -> {
@@ -273,7 +273,7 @@ public class OCTranspoActivity extends AppCompatActivity {
                             messages.remove(position);
                             adt.notifyItemRemoved(position);
 
-                            db.delete(Database.TABLE_NAME,"_id=?",new String[] { Long.toString(removedMessage.getId()) });
+                            db.delete(JJ_Database.TABLE_NAME,"_id=?",new String[] { Long.toString(removedMessage.getId()) });
 
                             /**SnackBar*/
                             Snackbar.make(busName, "You deleted message #"+position,Snackbar.LENGTH_LONG)
@@ -281,7 +281,7 @@ public class OCTranspoActivity extends AppCompatActivity {
                                         messages.add(position, removedMessage);
                                         adt.notifyItemInserted(position);
 
-                                        db.execSQL("Insert into "+ Database.TABLE_NAME + "values('" + removedMessage.getId() +
+                                        db.execSQL("Insert into "+ JJ_Database.TABLE_NAME + "values('" + removedMessage.getId() +
                                                 "','" + removedMessage.getBusNumber() +
                                                 "','" + removedMessage.getBusName() + "');");
                                     })
@@ -294,7 +294,7 @@ public class OCTranspoActivity extends AppCompatActivity {
 
             Button goTo = itemView.findViewById(R.id.goToBtn);
             goTo.setOnClickListener( (clk) -> {
-                Intent intent = new Intent(itemView.getContext(), BusRouteDetails.class);
+                Intent intent = new Intent(itemView.getContext(), JJ_BusRouteDetails.class);
                 intent.putExtra("BusNum" , busNum.getText().toString());
                 intent.putExtra("BusName", busName.getText().toString());
                intent.putExtra("BusStationNumber", busStationNumber);
@@ -316,7 +316,7 @@ public class OCTranspoActivity extends AppCompatActivity {
         @Override
         public RowsViews onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = getLayoutInflater();
-            View loadedRow = inflater.inflate(R.layout.avaiable_busroutes, parent, false);
+            View loadedRow = inflater.inflate(R.layout.JJ_avaiable_busroutes, parent, false);
             return new RowsViews(loadedRow);
             //return new RowsViews(getLayoutInflater().inflate(R.layout.avaiable_busroutes, parent,false));
         }

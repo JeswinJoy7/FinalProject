@@ -14,7 +14,7 @@
         <activity android:name=".MainActivity">
 
         </activity>
-        <activity android:name=".OCTranspoActivity">
+        <activity android:name=".JJ_OCTranspoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,10 +22,10 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".BusRouteDetails">
+        <activity android:name=".JJ_BusRouteDetails">
 
         </activity>
-        <activity android:name=".Activity">
+        <activity android:name=".JJ_Activity">
 
         </activity>
     </application>
