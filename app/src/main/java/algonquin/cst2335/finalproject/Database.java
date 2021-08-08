@@ -21,8 +21,8 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("Create table " + TABLE_NAME + " ( _Id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + col_busNumber +" TEXT,"
-                    + col_busName + " TEXT);");
+                    + col_busNumber + " TEXT, "
+                    + col_busName + " TEXT );");
     }
 
     @Override

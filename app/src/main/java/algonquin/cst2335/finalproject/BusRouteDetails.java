@@ -3,6 +3,7 @@ package algonquin.cst2335.finalproject;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -73,14 +74,17 @@ public class BusRouteDetails extends AppCompatActivity {
                 JSONObject getNextTripsForStopResults = theDocument.getJSONObject("GetNextTripsForStopResult");
                 JSONObject Route = getNextTripsForStopResults.getJSONObject("Route");
 
-                JSONObject RouteDirection = Route.getJSONObject("RouteDirection");
+                JSONArray RouteDirection = Route.getJSONArray("RouteDirection");
 
-                String RouteLabel = RouteDirection.getString("RouteLabel");
-                JSONObject Trips = RouteDirection.getJSONObject("Trips");
-                JSONArray Trip = Trips.getJSONArray("Trip");
+                for(int n = 0; n <RouteDirection.length(); n++) {
 
-                for(int i = 0; i< Trip.length(); i++) {
-                    JSONObject position = Trip.getJSONObject(i);
+                    JSONObject p = RouteDirection.getJSONObject(n);
+                    String RouteLabel = p.getString("RouteLabel");
+                    JSONObject Trips = p.getJSONObject("Trips");
+                    JSONArray Trip = Trips.getJSONArray("Trip");
+
+                //for(int i = 0; i< Trip.length(); i++) {
+                    JSONObject position = Trip.getJSONObject(0);
                     String Longitude = position.getString("Longitude");
                     String Latitude = position.getString("Latitude");
                     String GPSSpeed = position.getString("GPSSpeed");
@@ -89,26 +93,34 @@ public class BusRouteDetails extends AppCompatActivity {
                     String AdjustedScheduleTime = position.getString("AdjustedScheduleTime");
 
                     runOnUiThread(() -> {
-                        TextView dest = findViewById(R.id.destination);
-                        dest.setText(TripDestination);
 
-                        TextView latitude = findViewById(R.id.latitude);
-                        latitude.setText(Latitude);
+                        if(RouteLabel.equals(busName)) {
+                            TextView dest = findViewById(R.id.destination);
+                            dest.setText(TripDestination);
+                            dest.setVisibility(View.VISIBLE);
 
-                        TextView longitude = findViewById(R.id.longitude);
-                        longitude.setText(Longitude);
+                            TextView latitude = findViewById(R.id.latitude);
+                            latitude.setText(Latitude);
+                            latitude.setVisibility(View.VISIBLE);
 
-                        TextView gps = findViewById(R.id.speed);
-                        gps.setText(GPSSpeed);
+                            TextView longitude = findViewById(R.id.longitude);
+                            longitude.setText(Longitude);
+                            longitude.setVisibility(View.VISIBLE);
 
-                        TextView startTime = findViewById(R.id.startTime);
-                        startTime.setText(TripStartTime);
+                            TextView gps = findViewById(R.id.speed);
+                            gps.setText(GPSSpeed);
+                            gps.setVisibility(View.VISIBLE);
 
-                        TextView adjustedTime = findViewById(R.id.adjustedTime);
-                        adjustedTime.setText(AdjustedScheduleTime);
+                            TextView startTime = findViewById(R.id.startTime);
+                            startTime.setText(TripStartTime);
+                            startTime.setVisibility(View.VISIBLE);
 
+                            TextView adjustedTime = findViewById(R.id.adjustedTime);
+                            adjustedTime.setText(AdjustedScheduleTime);
+                            adjustedTime.setVisibility(View.VISIBLE);
+                        }
                     });
-                }
+                } //}
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }

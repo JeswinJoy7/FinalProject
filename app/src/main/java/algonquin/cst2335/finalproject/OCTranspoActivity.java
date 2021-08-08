@@ -132,6 +132,8 @@ public class OCTranspoActivity extends AppCompatActivity {
         // setting the JSON when the search button is clicked
         searchBtn.setOnClickListener( (click) -> {
 
+
+
             AlertDialog dialog = new AlertDialog.Builder(this)
                     .setTitle("Fetching bus rotes")
                     .setMessage("retrieving all bus routes from " + stationNo.getText().toString() + " station to find the perfect route..")
@@ -175,6 +177,7 @@ public class OCTranspoActivity extends AppCompatActivity {
                     JSONObject routes = getRouteSummaryForStopResults.getJSONObject("Routes");
                     JSONArray route = routes.getJSONArray("Route");
 
+
                     for(int i =0; i< route.length(); i++) {
                         JSONObject busRoutes = route.getJSONObject(i);
 
@@ -186,10 +189,10 @@ public class OCTranspoActivity extends AppCompatActivity {
                         ContentValues newRows = new ContentValues();
                         newRows.put(Database.col_busNumber, nextBusRoutes.getBusNumber());
                         newRows.put(Database.col_busName, nextBusRoutes.getBusName());
-                        Long newId = db.insert(Database.TABLE_NAME, Database.col_busName,newRows);
+                        Long newId = db.insert(Database.TABLE_NAME, Database.col_busNumber,newRows);
                         nextBusRoutes.setId(newId);
                         messages.add(nextBusRoutes);
-                    }
+
 
                     //setting the text in the runOnUiThread
                     runOnUiThread( () -> {
@@ -203,7 +206,7 @@ public class OCTranspoActivity extends AppCompatActivity {
 
                         dialog.hide();
                     });
-                }
+                } }
                 catch (IOException | JSONException ioe) {
                     Log.e("Connection error",ioe.getMessage());
                 }
