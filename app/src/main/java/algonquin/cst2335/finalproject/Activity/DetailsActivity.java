@@ -52,9 +52,10 @@ public class DetailsActivity extends AppCompatActivity {
         sharedPrefManager = new SharedManager(getApplicationContext());
         CharginPointDatabase dbHelper = new CharginPointDatabase(getApplicationContext());
 
-        /** code to get data from intent
+        /**code to get data from intent
          *
          */
+
         String title = sharedPrefManager.getString("Title");
         String Latitude = sharedPrefManager.getString("Latitude");
         String Longitude = sharedPrefManager.getString("Longitude");
