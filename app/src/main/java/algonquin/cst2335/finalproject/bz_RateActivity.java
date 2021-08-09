@@ -4,10 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * A bage that receives and stores the user's rating
@@ -22,6 +26,7 @@ public class bz_RateActivity extends AppCompatActivity {
         Intent ratePage = new Intent(bz_RateActivity.this, bz_MainActivity.class);
         SeekBar bar = findViewById(R.id.seekBar);
         Button submit = findViewById(R.id.button3);
+        EditText bz_ed = findViewById(R.id.bz_U_name);
 
 
         submit.setOnClickListener(clk -> {
@@ -31,7 +36,17 @@ public class bz_RateActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = prefs.edit();
             int rating = bar.getProgress();
             editor.putInt("rating", rating);
+            editor.putString("uname", bz_ed.getText().toString());
             editor.apply();
+
+            Snackbar.make(submit, "You rated our app\n Thank you)", Snackbar.LENGTH_LONG).show();
+
+
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             startActivity(ratePage);
 
@@ -39,6 +54,7 @@ public class bz_RateActivity extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
         int rating = preferences.getInt("rating", 2);
+        bz_ed.setText(preferences.getString("uname", ""));
         bar.setProgress(rating);
 
     }

@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">FinalProject</string>
+    <string name="app_name" translatable="false">FinalProject</string>
+    <string name="saved">Saved</string>
+    <string name="news">News</string>
 </resources>
