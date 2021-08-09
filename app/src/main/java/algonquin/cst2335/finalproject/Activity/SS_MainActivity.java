@@ -29,24 +29,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- *
- */
+
+
+
 public class SS_MainActivity extends AppCompatActivity implements AdapterInterface {
 
-    /**
-     *
-     */
+
     private static final String TAG = "MainActivity";
 
-    /**
-     *
-     */
+
     RecyclerView mRecyclerView;
 
-    /**
-     *
-     */
     ChargingPointAdapter chargingPointAdapter;
     List<AddressInfo> getchargingPointInfo;
     List<Example> example;
