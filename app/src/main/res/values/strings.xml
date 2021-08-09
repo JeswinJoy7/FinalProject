@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">CharginPoint</string>
+
+    <string name="app_name">FinalProject</string>
+    <string name="saved">Saved</string>
+    <string name="news">News</string>
+
+    <string name="project_Title">OCTranspo Bus Route App</string>
+    <string name="search">SEARCH</string>
+    <string name="entry_StationNo">Enter the station number: </string>
+    <string name="availableBusRoutes">Available Bus Routes</string>
+    <string name="alert_title">Instructions on how to use!</string>
+    <string name="alert_message">To locate relevant bus routes, go to the main page and enter in the station number.</string>
+    <string name="hint">Enter the Bus Station Number</string>
+    <string name="open" translatable="false" />
+    <string name="close" translatable="false" />
+
+
 </resources>

@@ -8,4 +8,6 @@
     <string name="alert_title">" Instructions sur la façon d'utiliser!"</string>
     <string name="alert_message">" Pour localiser les lignes de bus pertinentes, accédez à la page principale et entrez le numéro de la station."</string>
     <string name="hint">" Entrez le numéro de la gare routière"</string>
+    <string name="saved">saved</string>
+    <string name="news">nouvelles</string>
 </resources>
