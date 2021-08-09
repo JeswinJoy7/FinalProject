@@ -4,12 +4,14 @@ import android.provider.BaseColumns;
 
 public final class Entity {
 
-    // To prevent someone from accidentally instantiating the contract class,
-    // make the constructor private.
+
+    /** make the constructor private.
+     *
+     */
     private Entity() {
     }
 
-    /* Inner class that defines the table contents */
+    /** Inner class that defines the table contents */
     public static class FeedChargingPoint implements BaseColumns {
         public static final String TABLE_NAME = "ChargingPoint";
         public static final String COLUMN_NAME_TITLE = "Location_Title";

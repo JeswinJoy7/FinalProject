@@ -13,11 +13,13 @@ import java.util.List;
 
 public class SharedManager {
 
-    private static final String SHARED_PREF_NAME = "my_shared_preff";
+    /** this class is for storing value in session
+     *
+     */
 
+    private static final String SHARED_PREF_NAME = "my_shared_preff";
     private final SharedPreferences sharedprefs;
     private SharedPreferences.Editor editor;
-
     private static SharedManager appSharedprefs;
 
 
@@ -34,9 +36,6 @@ public class SharedManager {
             appSharedprefs = new SharedManager(context);
         return appSharedprefs;
     }
-
-
-
 
 
     public void setLoggedIn(boolean status) {

@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    /*Retrofit needs a base URL to build its instance,*/
+    /**Retrofit needs a base URL to build its instance,*/
     public static Retrofit getClient(String baseUrl) {
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();

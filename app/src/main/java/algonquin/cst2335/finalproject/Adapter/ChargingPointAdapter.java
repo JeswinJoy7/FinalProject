@@ -22,11 +22,20 @@ import algonquin.cst2335.finalproject.R;
 
 public class ChargingPointAdapter extends RecyclerView.Adapter<ChargingPointAdapter.ViewHoldervh> {
 
+    /**declare variable
+     *
+     */
     List<AddressInfo> getAddressList;
     private Context context;
     AdapterInterface adapterInterface;
     List<AddressInfo> searchList;
 
+    /**creating constructor for adding data into list
+     *
+     * @param getAddressList
+     * @param context
+     * @param adapterInterface
+     */
     public ChargingPointAdapter(List<AddressInfo> getAddressList, Context context, AdapterInterface adapterInterface) {
         this.getAddressList = getAddressList;
         this.context = context;
@@ -34,12 +43,22 @@ public class ChargingPointAdapter extends RecyclerView.Adapter<ChargingPointAdap
         this.searchList = getAddressList;
     }
 
+    /**creating fillter class for adapter which will perform searching
+     *
+     * @param filterllist
+     */
     public void filterList(ArrayList<AddressInfo> filterllist) {
-        // below line is to add our filtered
-        // list in our course array list.
+        /** below line is to add our filtered
+         *
+         */
+        /** list in our course array list.
+         *
+         */
         getAddressList = filterllist;
         // below line is to notify our adapter
-        // as change in recycler view data.
+        /** as change in recycler view data.
+         *
+         */
         notifyDataSetChanged();
     }
 
@@ -47,6 +66,9 @@ public class ChargingPointAdapter extends RecyclerView.Adapter<ChargingPointAdap
     @NonNull
     @Override
     public ViewHoldervh onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        /**inflating the view for our adapter class
+         *
+         */
         return new ViewHoldervh(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view, parent, false));
 
 
@@ -57,7 +79,9 @@ public class ChargingPointAdapter extends RecyclerView.Adapter<ChargingPointAdap
     public void onBindViewHolder(@NonNull ViewHoldervh holder, int position) {
         AddressInfo addressInfo = getAddressList.get(position);
 
-        Log.d("TAG", "onBindViewHolder: " + addressInfo);
+        /**setting the data into adapter view
+         *
+         */
         holder.tvTitle.setText("Title :" + addressInfo.getTitle());
         holder.tvTown.setText("Town :" + addressInfo.getTown());
         holder.AddressTv.setText("Address :" + addressInfo.getAddressLine2());
@@ -72,58 +96,36 @@ public class ChargingPointAdapter extends RecyclerView.Adapter<ChargingPointAdap
         });
 
 
+        holder.Delete.setVisibility(View.GONE);
+
     }
 
 
     @Override
     public int getItemCount() {
+        //returning the size of list
         return getAddressList.size();
     }
 
-    @NonNull
-    public Filter getFilter() {
-        return new Filter() {
-            @NonNull
-            @Override
-            protected FilterResults performFiltering(@NonNull CharSequence charSequence) {
-                String character = charSequence.toString();
-                if (character.isEmpty()) {
-                    getAddressList = searchList;
-                } else {
-                    List<AddressInfo> filteredList = new ArrayList<>();
-                    for (AddressInfo item : searchList) {
-                        if (item.getAddressLine1().toLowerCase().contains(character.toLowerCase())) {
-                            filteredList.add(item);
-                        }
-                    }
-                    getAddressList = filteredList;
-                }
-                FilterResults results = new FilterResults();
-                results.values = getAddressList;
-                return results;
-
-            }
-
-            @Override
-            protected void publishResults(CharSequence charSequence, @NonNull FilterResults filterResults) {
-                getAddressList = (ArrayList<AddressInfo>) filterResults.values;
-                notifyDataSetChanged();
-            }
-        };
-
-    }
 
     public class ViewHoldervh extends RecyclerView.ViewHolder {
 
-        TextView tvTitle, tvPostCode, tvTown, AddressTv;
+        /**here we are declaring the varibale of adapterlayout
+         *
+         */
+        TextView tvTitle, tvPostCode, tvTown, AddressTv, Delete;
         ConstraintLayout constraintlayout;
 
         public ViewHoldervh(@NonNull View itemView) {
             super(itemView);
+            /**initialize the view items
+             *
+             */
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvPostCode = itemView.findViewById(R.id.tvPostCode);
             tvTown = itemView.findViewById(R.id.tvTown);
             AddressTv = itemView.findViewById(R.id.AddressTv);
+            Delete = itemView.findViewById(R.id.delete);
             constraintlayout = itemView.findViewById(R.id.constraintlayout);
 
         }

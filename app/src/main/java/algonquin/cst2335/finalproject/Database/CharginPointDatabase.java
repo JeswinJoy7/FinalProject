@@ -5,6 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class CharginPointDatabase extends SQLiteOpenHelper {
+
+
+    /**local database class to create table and database
+     *
+     */
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "ChargingPointDb";
 
@@ -21,9 +26,12 @@ public class CharginPointDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-        // This database is only a cache for online data, so its upgrade policy is
-        // to simply to discard the data and start over
+        /** This database is only a cache for online data, so its upgrade policy is
+         *
+         */
+        /** to simply to discard the data and start over
+         *
+         */
         db.execSQL(Entity.FeedChargingPoint.SQL_DELETE_ENTRIES);
         onCreate(db);
     }

@@ -9,20 +9,20 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@color/white"
         app:cardCornerRadius="10dp"
-        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_margin="5dp"
             android:id="@+id/constraintlayout"
-            android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp">
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -30,8 +30,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:textColor="@color/black"
                 android:text="Null"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -39,10 +39,10 @@
             <TextView
                 android:id="@+id/tvPostCode"
                 android:layout_width="0dp"
-                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Null"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="@+id/tvTitle"
                 app:layout_constraintStart_toStartOf="@+id/tvTitle"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
@@ -52,8 +52,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/black"
                 android:text="Null"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="@+id/tvPostCode"
                 app:layout_constraintStart_toStartOf="@+id/tvPostCode"
                 app:layout_constraintTop_toBottomOf="@+id/tvPostCode" />
@@ -64,12 +64,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:textColor="@color/black"
                 android:text="Null"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tvTown"
                 app:layout_constraintStart_toStartOf="@+id/tvTown"
                 app:layout_constraintTop_toBottomOf="@+id/tvTown" />
+
+            <TextView
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Delete"
+                android:textColor="@color/red"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/AddressTv"
+                app:layout_constraintStart_toStartOf="@+id/AddressTv"
+                app:layout_constraintTop_toBottomOf="@+id/AddressTv" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

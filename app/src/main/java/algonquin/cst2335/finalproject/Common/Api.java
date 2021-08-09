@@ -10,6 +10,7 @@ import retrofit2.http.Header;
 
 public interface Api {
 
+    //declare end point of api here
     @GET("poi/")
     Call<List<Example>> getChargingPoint(@Header("X-API-Key") String Key);
 

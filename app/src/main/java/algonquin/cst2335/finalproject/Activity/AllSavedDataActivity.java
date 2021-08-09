@@ -1,5 +1,6 @@
 package algonquin.cst2335.finalproject.Activity;
 
+import algonquin.cst2335.finalproject.Adapter.ChargingSavedDataAdapter;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,13 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.provider.BaseColumns;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import algonquin.cst2335.finalproject.Adapter.ChargingPointAdapter;
 import algonquin.cst2335.finalproject.Common.AdapterInterface;
 import algonquin.cst2335.finalproject.Database.CharginPointDatabase;
 import algonquin.cst2335.finalproject.Database.Entity;
@@ -22,10 +21,12 @@ import algonquin.cst2335.finalproject.R;
 
 public class AllSavedDataActivity extends AppCompatActivity implements AdapterInterface {
 
+    /**
+     *   declare variable
+     */
     RecyclerView recyclerView;
     List<AddressInfo> addressInfoList;
-
-    ChargingPointAdapter chargingPointAdapter;
+    ChargingSavedDataAdapter charginSavedAdapter;
     SQLiteDatabase db;
 
     @Override
@@ -33,19 +34,32 @@ public class AllSavedDataActivity extends AppCompatActivity implements AdapterIn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_saved_data);
 
+        /**
+         * initialize variable*
+
+         */
 
         recyclerView = findViewById(R.id.saveRecyclerview);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
         CharginPointDatabase dbHelper = new CharginPointDatabase(getApplicationContext());
 
+        /**initialize list here*/
         addressInfoList = new ArrayList<>();
-        chargingPointAdapter = new ChargingPointAdapter(addressInfoList, this, this);
-        recyclerView.setAdapter(chargingPointAdapter);
-
+        /**add list into Adapter*/
+        charginSavedAdapter = new ChargingSavedDataAdapter(addressInfoList, this);
+        /**adding adapter to our recyclerview*/
+        recyclerView.setAdapter(charginSavedAdapter);
+        /**call method for getting all the data from database
+         *
+         */
         getAllSavedData(dbHelper);
     }
 
+    /**method for get All Saved Data
+     *
+     * @param dbHelper
+     */
     private void getAllSavedData(CharginPointDatabase dbHelper) {
 
         db = dbHelper.getReadableDatabase();
@@ -59,11 +73,14 @@ public class AllSavedDataActivity extends AppCompatActivity implements AdapterIn
             addressInfo.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(Entity.FeedChargingPoint.COLUMN_NAME_TITLE)));
             addressInfo.setTown(cursor.getString(cursor.getColumnIndexOrThrow(Entity.FeedChargingPoint.COLUMN_NAME_LATITUDE)));
             addressInfoList.add(addressInfo);
+            /**adding data into list from database*/
+
 
         }
 
         if (addressInfoList.size() > 0) {
-            chargingPointAdapter.notifyDataSetChanged();
+            /**here we notify the data adapter if any changes occurs*/
+            charginSavedAdapter.notifyDataSetChanged();
         } else {
             Toast.makeText(AllSavedDataActivity.this, "no data found", Toast.LENGTH_SHORT).show();
         }
@@ -71,9 +88,18 @@ public class AllSavedDataActivity extends AppCompatActivity implements AdapterIn
 
     }
 
+
+    /**method for detele the item
+     *
+     * @param addressInfo
+     */
     @Override
     public void onItemClicked(AddressInfo addressInfo) {
-
-
+        int deletedRows = db.delete(Entity.FeedChargingPoint.TABLE_NAME, "_id= " + addressInfo.getId() + "", null);
+        if (deletedRows > 0) {
+            Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Unable to Delete", Toast.LENGTH_SHORT).show();
+        }
     }
 }
