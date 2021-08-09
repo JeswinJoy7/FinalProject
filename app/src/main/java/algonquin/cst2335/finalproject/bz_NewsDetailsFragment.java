@@ -14,8 +14,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.collection.CircularArray;
 import androidx.fragment.app.Fragment;
-
 
 import com.squareup.picasso.Picasso;
 
@@ -53,7 +53,6 @@ public class bz_NewsDetailsFragment extends Fragment {
     Button bz_save;
 
     ImageView bz_pic;
-
 
 
     /**
