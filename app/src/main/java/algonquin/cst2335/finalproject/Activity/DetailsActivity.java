@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import algonquin.cst2335.finalproject.Common.SharedManager;
 import algonquin.cst2335.finalproject.Database.CharginPointDatabase;
 import algonquin.cst2335.finalproject.Database.Entity;
-import algonquin.cst2335.finalproject.R;
+import com.algonquin.cst2335.finalproject.R;
 
 
 public class DetailsActivity extends AppCompatActivity {

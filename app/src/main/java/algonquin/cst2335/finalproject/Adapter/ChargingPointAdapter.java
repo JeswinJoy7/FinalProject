@@ -13,12 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.algonquin.cst2335.finalproject.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import algonquin.cst2335.finalproject.Common.AdapterInterface;
 import algonquin.cst2335.finalproject.Model.AddressInfo;
-import algonquin.cst2335.finalproject.R;
 
 public class ChargingPointAdapter extends RecyclerView.Adapter<ChargingPointAdapter.ViewHoldervh> {
 

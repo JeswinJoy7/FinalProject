@@ -17,6 +17,7 @@ import android.widget.TextView;
 import androidx.collection.CircularArray;
 import androidx.fragment.app.Fragment;
 
+import com.algonquin.cst2335.finalproject.R;
 import com.squareup.picasso.Picasso;
 
 import java.io.FileOutputStream;

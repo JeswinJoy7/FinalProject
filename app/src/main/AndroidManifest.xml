@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="algonquin.cst2335.finalproject">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.algonquin.cst2335.finalproject">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -9,23 +10,39 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+
         android:networkSecurityConfig="@xml/network_security_config"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CharginPoint">
+        android:theme="@style/Theme.FinalProject">
+
+        <activity android:name="algonquin.cst2335.finalproject.Activity.AllSavedDataActivity"
+            android:exported="true"/>
+
+
         <activity
-            android:name=".Activity.AllSavedDataActivity"
-            android:exported="true" />
-        <activity
-            android:name=".Activity.DetailsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".Activity.SS_MainActivity"
+            android:name="algonquin.cst2335.finalproject.Activity.SS_MainActivity"
             android:exported="true"
             android:theme="@style/Theme.FinalProject"/>
 
-        <activity android:name=".bz_RateActivity"></activity>
-        <activity android:name=".bz_MainActivity">
+        <activity
+            android:name="algonquin.cst2335.finalproject.bz_RateActivity"
+            android:theme="@style/Theme.AppCompat"></activity>
+
+
+        <activity android:name="algonquin.cst2335.finalproject.bz_MainActivity"
+            android:theme="@style/Theme.AppCompat"></activity>
+
+
+        <activity android:name="algonquin.cst2335.finalproject.sv_MovieDetailsActivity"
+            android:theme="@style/Theme.AppCompat"></activity>
+
+        <activity android:name="algonquin.cst2335.finalproject.sv_AllSavedMovies"
+            android:theme="@style/Theme.AppCompat"/>
+
+        <activity android:name="algonquin.cst2335.finalproject.Activity.MainActivity"
+            android:theme="@style/Theme.AppCompat">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,5 +50,7 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

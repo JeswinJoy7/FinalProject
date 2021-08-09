@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 
+import com.algonquin.cst2335.finalproject.R;
 /**
  * A class that serves as football dames api
  */

@@ -3,6 +3,7 @@ package algonquin.cst2335.finalproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import com.algonquin.cst2335.finalproject.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 

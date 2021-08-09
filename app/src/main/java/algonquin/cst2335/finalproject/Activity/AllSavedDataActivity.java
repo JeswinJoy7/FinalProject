@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.provider.BaseColumns;
 import android.widget.Toast;
+
+import com.algonquin.cst2335.finalproject.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,6 @@ import algonquin.cst2335.finalproject.Common.AdapterInterface;
 import algonquin.cst2335.finalproject.Database.CharginPointDatabase;
 import algonquin.cst2335.finalproject.Database.Entity;
 import algonquin.cst2335.finalproject.Model.AddressInfo;
-import algonquin.cst2335.finalproject.R;
 
 public class AllSavedDataActivity extends AppCompatActivity implements AdapterInterface {
 

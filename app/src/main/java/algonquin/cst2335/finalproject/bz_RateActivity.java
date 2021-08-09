@@ -11,6 +11,7 @@ import android.widget.SeekBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.algonquin.cst2335.finalproject.R;
 import com.google.android.material.snackbar.Snackbar;
 
 /**

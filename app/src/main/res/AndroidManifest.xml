@@ -11,12 +11,12 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CharginPoint">
+        android:theme="@style/Theme.FinalProject">
         <activity
             android:name=".Activity.DetailsActivity"
             android:exported="true" />
         <activity
-            android:name=".Activity.SS_MainActivity"
+            android:name=".Activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

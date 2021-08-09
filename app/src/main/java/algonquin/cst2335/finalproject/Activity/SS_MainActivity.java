@@ -23,7 +23,7 @@ import algonquin.cst2335.finalproject.Common.ApiUtils;
 import algonquin.cst2335.finalproject.Common.SharedManager;
 import algonquin.cst2335.finalproject.Model.AddressInfo;
 import algonquin.cst2335.finalproject.Model.Example;
-import algonquin.cst2335.finalproject.R;
+import com.algonquin.cst2335.finalproject.R;
 import algonquin.cst2335.finalproject.Utils.Constant;
 import retrofit2.Call;
 import retrofit2.Callback;
