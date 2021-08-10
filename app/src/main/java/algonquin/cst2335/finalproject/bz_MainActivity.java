@@ -10,8 +10,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Switch;
 
 import com.algonquin.cst2335.finalproject.R;
+
+import algonquin.cst2335.finalproject.Activity.MainActivity;
+
 /**
  * A class that serves as football dames api
  */
@@ -40,6 +45,8 @@ public class bz_MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bz_empty_layout);
 
+
+
         bz_isTablet = findViewById(R.id.detailsRoom) != null;
         FragmentManager fMgr = getSupportFragmentManager();
         FragmentTransaction tx = fMgr.beginTransaction();
@@ -50,8 +57,11 @@ public class bz_MainActivity extends AppCompatActivity {
         Intent fromPrevious = getIntent();
         ask = fromPrevious.getBooleanExtra("shouldAsk", true);
 
-        Toolbar myToolbar = findViewById(R.id.bz_toolbar);
-        setSupportActionBar(myToolbar);
+        runOnUiThread(() -> {
+            Toolbar bz_myToolbar = findViewById(R.id.bz_toolbar);
+            setSupportActionBar(bz_myToolbar);
+        });
+
 
         if(ask) {
             AlertDialog.Builder builder = new AlertDialog.Builder(bz_MainActivity.this);
@@ -63,6 +73,7 @@ public class bz_MainActivity extends AppCompatActivity {
                 Intent restart = new Intent(bz_MainActivity.this, bz_MainActivity.class);
                 restart.putExtra("shouldAsk", false);
                 startActivity(restart);
+
             });
 
             builder.setPositiveButton("Sure", (dialog, cl) -> {
@@ -71,6 +82,8 @@ public class bz_MainActivity extends AppCompatActivity {
             });
 
             builder.create().show();
+
+
         }
 
     }
@@ -80,6 +93,23 @@ public class bz_MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.bz_menu, menu);
         return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
+
+            case R.id.bz_name:
+
+                Intent back = new Intent(bz_MainActivity.this, MainActivity.class);
+                startActivity(back);
+
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -93,6 +123,7 @@ public class bz_MainActivity extends AppCompatActivity {
 
         bz_NewsDetailsFragment mdFragment = new bz_NewsDetailsFragment(chatMessage, position);
 
+
         if(bz_isTablet){
 
             getSupportFragmentManager().beginTransaction().replace(R.id.detailsRoom, mdFragment).commit();
@@ -104,5 +135,7 @@ public class bz_MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 
 }

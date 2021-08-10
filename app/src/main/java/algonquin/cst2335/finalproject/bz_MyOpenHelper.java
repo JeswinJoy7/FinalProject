@@ -20,11 +20,6 @@ public class bz_MyOpenHelper extends SQLiteOpenHelper {
     public static final int version = 1;
 
     /**
-     * The name of the table that will store the news that user has saved
-     */
-    public static final String TABLE_NAME = "BZ_News";
-
-    /**
      * the text from the news
      */
     public static final String col_message = "Message";
@@ -32,7 +27,7 @@ public class bz_MyOpenHelper extends SQLiteOpenHelper {
     /**
      * the time news were published here
      */
-    public static final String col_time_sent = "TimeSEnt";
+    public static final String col_time_sent = "TimeSent";
 
     /**
      * an image related to the news
@@ -46,16 +41,13 @@ public class bz_MyOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("Create table " + TABLE_NAME + "(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                                                    + col_message + " TEXT, "
-                                                    + col_time_sent + " TEXT,"
-                                                    + col_url + " TEXT)");
+        db.execSQL("Create table BZ_News (_id INTEGER PRIMARY KEY AUTOINCREMENT, Message TEXT, TimeSent TEXT, URL TEXT)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        db.execSQL( "drop table if exists " + TABLE_NAME);
+        db.execSQL( "drop table if exists BZ_News");
         onCreate(db);
 
     }

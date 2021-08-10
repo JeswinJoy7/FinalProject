@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.collection.CircularArray;
 import androidx.fragment.app.Fragment;
 
@@ -67,6 +69,7 @@ public class bz_NewsDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+
         View detailsView = inflater.inflate(R.layout.bz_details_layout, container, false);
 
         bz_pic = detailsView.findViewById(R.id.imageDetails);
@@ -100,7 +103,7 @@ public class bz_NewsDetailsFragment extends Fragment {
             newRow.put(bz_MyOpenHelper.col_message, bz_chosenPiece.getMessage());
             newRow.put(bz_MyOpenHelper.col_time_sent, bz_chosenPiece.getTimeSent());
             newRow.put(bz_MyOpenHelper.col_url, bz_chosenPiece.getImageURL());
-            long newId = bz_db.insert(bz_MyOpenHelper.TABLE_NAME, bz_MyOpenHelper.col_message, newRow);
+            long newId = bz_db.insert("BZ_News", bz_MyOpenHelper.col_message, newRow);
             bz_chosenPiece.setId(newId);
 
         });

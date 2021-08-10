@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -84,17 +85,24 @@ public class bz_NewsListFragment extends Fragment {
      */
     MyRowViews bz_holder;
 
+    bz_MainActivity main = (bz_MainActivity)getActivity();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         bz_listedLayout = inflater.inflate(R.layout.bz_news, container, false);
 
+
+
         bz_newsArray.clear();
         getFromWeb();
+
+
 
             bz_goTo = bz_listedLayout.findViewById(R.id.toSaved);
 
             bz_goTo.setOnClickListener(e ->{
+                clearRecycler();
                 bz_newsArray.clear();
                 getFromWeb();
                 Toast.makeText(getActivity().getApplicationContext(),
@@ -106,6 +114,7 @@ public class bz_NewsListFragment extends Fragment {
             bz_toNews = bz_listedLayout.findViewById(R.id.toSaved);
 
             bz_toNews.setOnClickListener(e ->{
+                clearRecycler();
                 bz_newsArray.clear();
                 populate();
                 Toast.makeText(getActivity().getApplicationContext(),
@@ -127,6 +136,13 @@ public class bz_NewsListFragment extends Fragment {
 
     }
 
+    private void clearRecycler(){
+
+        for(int i = bz_adt.getItemCount(); i>0; i--) {
+            bz_adt.notifyItemRemoved(i);
+        }
+
+    }
 
 
     /**
@@ -243,7 +259,7 @@ public class bz_NewsListFragment extends Fragment {
         bz_MyOpenHelper opener = new bz_MyOpenHelper(getContext());
         bz_db = opener.getWritableDatabase();
 
-        Cursor results = bz_db.rawQuery("SELECT * FROM " + bz_MyOpenHelper.TABLE_NAME + ";", null);
+        Cursor results = bz_db.rawQuery("SELECT * FROM BZ_News;", null);
 
         int idCol = results.getColumnIndex("_id");
         int messageCol = results.getColumnIndex(bz_MyOpenHelper.col_message);
@@ -256,8 +272,7 @@ public class bz_NewsListFragment extends Fragment {
             String message = results.getString(messageCol);
             String time = results.getString(timeCol);
 
-            bz_newsArray.add(new PieceOfNews(message, time, id, "@drawable/ball"));
-            //bz_adt.notifyItemInserted(bz_newsArray.size() - 1);
+            bz_adt.notifyItemInserted(bz_newsArray.size() - 1);
         }
 
     }
@@ -322,7 +337,6 @@ public class bz_NewsListFragment extends Fragment {
 
                                     while(!(xpp.getName() + "").equals("item")){
 
-                                    i++;
 
                                     if ((xpp.getName() + "").equals("description") && eventType == XmlPullParser.START_TAG) {
 
@@ -356,7 +370,7 @@ public class bz_NewsListFragment extends Fragment {
 
                                 }
                                     bz_newsArray.add(new PieceOfNews(description + "", "" + time, i, icon));
-                                    //bz_adt.notifyItemInserted(bz_newsArray.size() - 1);
+
                                     Log.w("MainActivity", "eventType " + eventType + " </item>");
                                 }
 
@@ -391,6 +405,11 @@ public class bz_NewsListFragment extends Fragment {
                         e.printStackTrace();
                     }
                     });
+
+
+        for(int i = 0; i< bz_newsArray.size(); i++){
+            bz_adt.notifyItemInserted(bz_newsArray.size() - 1);
+        }
 
 
         }

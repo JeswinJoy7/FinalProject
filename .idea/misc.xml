@@ -16,6 +16,7 @@
         <entry key="..\:/Users/bogda/AndroidStudioProjects/FinalProject/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/bogda/AndroidStudioProjects/FinalProject/app/src/main/res/layout/bz_details_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/bogda/AndroidStudioProjects/FinalProject/app/src/main/res/layout/bz_empty_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/bogda/AndroidStudioProjects/FinalProject/app/src/main/res/layout/bz_news.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/bogda/AndroidStudioProjects/FinalProject/app/src/main/res/layout/bz_rating.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/bogda/AndroidStudioProjects/FinalProject/app/src/main/res/layout/bz_sent_message.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/bogda/AndroidStudioProjects/FinalProject/app/src/main/res/layout/item_view.xml" value="0.36666666666666664" />
@@ -30,6 +31,7 @@
         <entry key="..\:/Users/bogda/AndroidStudioProjects/FinalProject/app/src/main/res/layout/sv_activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/bogda/AndroidStudioProjects/FinalProject/app/src/main/res/layout/sv_activity_movie_details.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/bogda/AndroidStudioProjects/FinalProject/app/src/main/res/layout/sv_save_movie_view.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/bogda/AndroidStudioProjects/FinalProject/app/src/main/res/menu/bz_menu.xml" value="0.35104166666666664" />
       </map>
     </option>
   </component>
