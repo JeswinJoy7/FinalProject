@@ -41,7 +41,7 @@ public class sv_MainActivity extends AppCompatActivity {
         setContentView(R.layout.sv_activity_main);
 
         sv_MovieDatabse dbHelper = new sv_MovieDatabse(getApplicationContext());
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();                      <-------------------Bohdan commented out
         editTextTextPersonName = findViewById(R.id.editTextTextPersonName);
         search = findViewById(R.id.button);
         ivMovePoster = findViewById(R.id.moviePoster);

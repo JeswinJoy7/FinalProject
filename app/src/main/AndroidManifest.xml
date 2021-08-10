@@ -32,6 +32,8 @@
         <activity android:name="algonquin.cst2335.finalproject.bz_MainActivity"
             android:theme="@style/Theme.FinalProject"></activity>
 
+        <activity android:name="algonquin.cst2335.finalproject.sv_MainActivity"
+            android:theme="@style/Theme.FinalProject"></activity>
 
         <activity android:name="algonquin.cst2335.finalproject.sv_MovieDetailsActivity"
             android:theme="@style/Theme.FinalProject"></activity>

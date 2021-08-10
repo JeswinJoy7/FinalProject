@@ -30,7 +30,7 @@ public class sv_AllSavedMovies extends AppCompatActivity implements sv_AdapterIn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sv_activity_all_saved_movies);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();                               <--------------------------Bohdan commented out
         recyclerView = findViewById(R.id.saveRecyclerview);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
