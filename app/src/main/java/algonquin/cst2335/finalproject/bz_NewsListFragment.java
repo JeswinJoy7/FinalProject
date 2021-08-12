@@ -1,5 +1,6 @@
 package algonquin.cst2335.finalproject;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -99,17 +100,17 @@ public class bz_NewsListFragment extends Fragment {
 
 
 
-            bz_goTo = bz_listedLayout.findViewById(R.id.toSaved);
-
-            bz_goTo.setOnClickListener(e ->{
-                clearRecycler();
-                bz_newsArray.clear();
-                getFromWeb();
-                Toast.makeText(getActivity().getApplicationContext(),
-                        "Switched to news",
-                        Toast.LENGTH_LONG)
-                        .show();
-            });
+//            bz_goTo = bz_listedLayout.findViewById(R.id.toSaved);
+//
+//            bz_goTo.setOnClickListener(e ->{
+//               clearRecycler();
+//               bz_newsArray.clear();
+//               getFromWeb();
+//                Toast.makeText(getActivity().getApplicationContext(),
+//                        "Switched to news",
+//                        Toast.LENGTH_LONG)
+//                        .show();
+//            });
 
             bz_toNews = bz_listedLayout.findViewById(R.id.toSaved);
 
@@ -264,16 +265,21 @@ public class bz_NewsListFragment extends Fragment {
         int idCol = results.getColumnIndex("_id");
         int messageCol = results.getColumnIndex(bz_MyOpenHelper.col_message);
         int timeCol = results.getColumnIndex(bz_MyOpenHelper.col_time_sent);
+        int urlCol = results.getColumnIndex(bz_MyOpenHelper.col_url);
 
         int i = 0;
         while(results.moveToNext()) {
-            //int id = results.getInt(idCol);
-            int id = i++;
+            int id = results.getInt(idCol);
+            //int id = i++;
             String message = results.getString(messageCol);
             String time = results.getString(timeCol);
+            String icon = results.getString(urlCol);
 
-            bz_adt.notifyItemInserted(bz_newsArray.size() - 1);
+            bz_newsArray.add(new PieceOfNews(message + "", "" + time, id, icon));
+
+            //bz_adt.notifyItemInserted(bz_newsArray.size() - 1);
         }
+        bz_adt.notifyDataSetChanged();
 
     }
 
