@@ -3,10 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-
-
     <item
         android:id="@+id/savedDataId"
-        android:title="View All Saved Data">
-    </item>
+        android:title="@string/saved"></item>
 </menu>

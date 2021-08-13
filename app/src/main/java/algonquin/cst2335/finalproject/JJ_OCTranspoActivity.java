@@ -209,11 +209,11 @@ public class JJ_OCTranspoActivity extends AppCompatActivity {
                         BusRoutes nextBusRoutes = new BusRoutes(routeNo, routeHeading);
 
                         //dataBase
-                        ContentValues newRows = new ContentValues();
-                        newRows.put(JJ_Database.col_busNumber, nextBusRoutes.getBusNumber());
-                        newRows.put(JJ_Database.col_busName, nextBusRoutes.getBusName());
-                        Long newId = db.insert(JJ_Database.TABLE_NAME, JJ_Database.col_busNumber,newRows);
-                        nextBusRoutes.setId(newId);
+//                        ContentValues newRows = new ContentValues();
+//                        newRows.put(JJ_Database.col_busNumber, nextBusRoutes.getBusNumber());
+//                        newRows.put(JJ_Database.col_busName, nextBusRoutes.getBusName());
+//                        Long newId = db.insert(JJ_Database.TABLE_NAME, JJ_Database.col_busNumber,newRows);
+//                        nextBusRoutes.setId(newId);
                         messages.add(nextBusRoutes);
 
 
@@ -275,7 +275,10 @@ public class JJ_OCTranspoActivity extends AppCompatActivity {
                             messages.remove(position);
                             adt.notifyItemRemoved(position);
 
-                            db.delete(JJ_Database.TABLE_NAME,"_id=?",new String[] { Long.toString(removedMessage.getId()) });
+
+                            Log.w("",removedMessage.getId() + "");
+
+                            //db.delete(JJ_Database.TABLE_NAME,"_id=?",new String[] { Long.toString(removedMessage.getId()) });
 
                             /**SnackBar*/
                             Snackbar.make(busName, "You deleted message #"+position,Snackbar.LENGTH_LONG)
@@ -283,9 +286,9 @@ public class JJ_OCTranspoActivity extends AppCompatActivity {
                                         messages.add(position, removedMessage);
                                         adt.notifyItemInserted(position);
 
-                                        db.execSQL("Insert into "+ JJ_Database.TABLE_NAME + "values('" + removedMessage.getId() +
-                                                "','" + removedMessage.getBusNumber() +
-                                                "','" + removedMessage.getBusName() + "');");
+//                                        db.execSQL("Insert into "+ JJ_Database.TABLE_NAME + "values('" + removedMessage.getId() +
+//                                                "','" + removedMessage.getBusNumber() +
+//                                                "','" + removedMessage.getBusName() + "');");
                                     })
                                     .show();
                         }).create().show();

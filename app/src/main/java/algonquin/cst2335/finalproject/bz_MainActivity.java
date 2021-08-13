@@ -106,6 +106,17 @@ public class bz_MainActivity extends AppCompatActivity {
                 startActivity(back);
 
                 break;
+            case R.id.bz_info:
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(bz_MainActivity.this);
+                builder.setMessage("This app loads spot news data\n click any item to see more");
+                builder.setTitle("App info");
+
+                builder.create().show();
+
+
+
+                break;
 
         }
 

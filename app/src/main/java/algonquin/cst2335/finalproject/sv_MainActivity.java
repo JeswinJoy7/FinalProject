@@ -72,6 +72,9 @@ public class sv_MainActivity extends AppCompatActivity {
 
         save.setOnClickListener(v -> {
 
+            /**Toast Message*/
+            Toast.makeText(getApplicationContext(),"Saving movie data", Toast.LENGTH_LONG).show();
+
             SQLiteDatabase db = dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
             values.put(sv_Entity.FeedMovies.COLUMN_NAME_TITLE, modelMovieInformation.getTitle());

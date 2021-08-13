@@ -6,4 +6,9 @@
         android:icon="@drawable/player"
         android:title="Bohdan Zhemelinskyi 0.1"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/bz_info"
+        android:icon="@drawable/info"
+        android:title="info"
+        app:showAsAction="always" />
 </menu>
